@@ -19,7 +19,8 @@ Libraries used:
 
 SLRE for regex (GPLv2)
 
-[](https://github.com/cesanta/slre/tree/master)
+https://github.com/cesanta/slre/tree/master
 
 c-algorithms for data structures (ISC)
-[](https://github.com/fragglet/c-algorithms/tree/master)
+
+https://github.com/fragglet/c-algorithms/tree/master
