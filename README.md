@@ -1,5 +1,14 @@
 **build with `make`**
 
+## TODO
+
+- [ ] Separate data logic of interpreter loop
+- [ ] NEEDS to modularize before adding new features !!!
+- [ ] Basic display operations: ., .s
+- [ ] Basic arithmetics
+- [ ] Stack ops
+...
+
 limitations:
 
 - currently only stacks numbers.
