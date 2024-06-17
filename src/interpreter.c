@@ -7,7 +7,6 @@
 #include <string.h>
 
 #define BUF_LEN 1024
-#define DATASTACK_LEN 1024
 
 int main(void) {
 
