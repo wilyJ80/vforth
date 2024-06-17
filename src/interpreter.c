@@ -32,7 +32,7 @@ int main(void) {
     sdstrim(buffer_to_sds, "\n");
 
     ListValue list_value = buffer_to_sds;
-    list_prepend(&data_stack, list_value);
+    list_append(&data_stack, list_value);
 
     // TODO: Add eval() function here
 
