@@ -35,6 +35,8 @@ int main(void) {
     ListValue list_value = buffer_to_sds;
     list_prepend(&data_stack, list_value);
 
+    // TODO: Add eval() function here
+
     // print stack
     ListIterator iter;
     list_iterate(&data_stack, &iter);
