@@ -1,6 +1,6 @@
-#include "list.h"
-#include "slre.h"
-#include "sds.h"
+#include "../lib/list.h"
+#include "../lib/slre.h"
+#include "../lib/sds.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
