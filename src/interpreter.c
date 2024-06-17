@@ -1,5 +1,6 @@
 #include "list.h"
 #include "slre.h"
+#include "sds.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +12,6 @@
 int main(void) {
 
   char buffer[BUF_LEN];
-
   struct _ListEntry *data_stack = NULL;
 
   printf("VFORTH 0.0.1 - Enter Ctrl+D to exit\n");
@@ -26,23 +26,29 @@ int main(void) {
 
     // Remove trailing newline
     buffer[strcspn(buffer, "\n")] = '\0';
+    
+    sds buffer_to_sds = sdsnew(buffer);
 
     // Empty input, skip
     if (buffer[0] == '\0') {
+      sdsfree(buffer_to_sds);
       continue;
     }
 
     // Check valid integer
     // Currently not accepting words, only numbers!
-    if (slre_match("^[\\d]+$", buffer, strlen(buffer),NULL, 0, 0) <= 0) {
+    /* if (slre_match("^[\\d]+$", buffer, strlen(buffer),NULL, 0, 0) <= 0) {
       printf("Not integer\n");
       continue;
     }
-
-    int value = atoi(buffer);
+*/
+    /* int value = atoi(buffer);
     int *value_ptr = malloc(sizeof(int));
     *value_ptr = value;
     ListValue list_value = value_ptr;
+    list_prepend(&data_stack, list_value); */
+
+    ListValue list_value = buffer_to_sds;
     list_prepend(&data_stack, list_value);
 
     // print stack
@@ -50,17 +56,16 @@ int main(void) {
     list_iterate(&data_stack, &iter);
     while (list_iter_has_more(&iter)) {
       ListValue value = list_iter_next(&iter);
-      // pointer dereferencing
-      printf("%d ", *((int *)value));
+      printf("%s ", (char *)value);
     }
   }
 
-  // free memory
+  // free data stack memory
   ListIterator iter;
   list_iterate(&data_stack, &iter);
   while (list_iter_has_more(&iter)) {
     ListValue value = list_iter_next(&iter);
-    free(value);
+    sdsfree((sds)value);
   }
 
   list_free(data_stack);
