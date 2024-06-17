@@ -24,29 +24,13 @@ int main(void) {
       return EXIT_SUCCESS;
     }
 
-    // Remove trailing newline
-    buffer[strcspn(buffer, "\n")] = '\0';
-    
-    sds buffer_to_sds = sdsnew(buffer);
-
     // Empty input, skip
-    if (buffer[0] == '\0') {
-      sdsfree(buffer_to_sds);
+    if (buffer[0] == '\n') {
       continue;
     }
 
-    // Check valid integer
-    // Currently not accepting words, only numbers!
-    /* if (slre_match("^[\\d]+$", buffer, strlen(buffer),NULL, 0, 0) <= 0) {
-      printf("Not integer\n");
-      continue;
-    }
-*/
-    /* int value = atoi(buffer);
-    int *value_ptr = malloc(sizeof(int));
-    *value_ptr = value;
-    ListValue list_value = value_ptr;
-    list_prepend(&data_stack, list_value); */
+    sds buffer_to_sds = sdsnew(buffer);
+    sdstrim(buffer_to_sds, "\n");
 
     ListValue list_value = buffer_to_sds;
     list_prepend(&data_stack, list_value);
