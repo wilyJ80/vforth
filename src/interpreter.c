@@ -14,7 +14,7 @@ int main(void) {
   char buffer[BUF_LEN];
   struct _ListEntry *data_stack = NULL;
 
-  printf("VFORTH 0.0.1 - Enter Ctrl+D to exit\n");
+  printf("VFORTH 0.0.2 - Enter Ctrl+D to exit\n");
 
   while (true) {
     printf("ok> ");
