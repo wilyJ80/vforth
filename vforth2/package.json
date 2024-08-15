@@ -1,0 +1,15 @@
+{
+  "name": "vforth2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "gcc ./src/*.c -o ./build/vforth",
+    "exec": "./build/vforth",
+    "build:exec": "npm run build && npm run exec"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,3 @@
+int a = 'vic';
+int b = 'tão';
+print(a + b + ' ' + 'bonitao');
