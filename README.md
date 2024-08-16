@@ -2,7 +2,9 @@
 
 > [!TIP]
 > Building the intepreter: check the following scripts on package.json
+>
 > `npm run build:exec` to compile and run the interpreter as REPL
+>
 > `npm run build:exec <filename>` to compile and run the interpreter off existing code file
 
 - TODO: 
