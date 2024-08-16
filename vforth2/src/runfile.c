@@ -47,7 +47,7 @@ const char* read_file(const char *file_name) {
 }
 
 int run_file(const char *file_as_string) {
-	// TODO parse
+	// TODO: parse
 	run(file_as_string);
 	return 0;
 }

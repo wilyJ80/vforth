@@ -26,6 +26,6 @@ int prompt() {
 		// Reads line (working, currently only echoes it)
 		run(buffer);
 
-		// Eval line
+		// TODO: Eval line
 	}
 }

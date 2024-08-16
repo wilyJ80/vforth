@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
 	} else {
 		printf("Running prompt...\n");
 		prompt();
+		// TODO: add had_error flag
 	}
 
 	return EXIT_SUCCESS;
