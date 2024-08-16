@@ -1,24 +1,19 @@
-**build with `make`**
+- Requirements: gcc, npm, Node.js
 
-## TODO
+> [!TIP]
+> Building the intepreter: check the following scripts on package.json
+> `npm run build:exec` to compile and run the interpreter as REPL
+> `npm run build:exec <filename>` to compile and run the interpreter off existing code file
 
-- [ ] Separate data logic of interpreter loop
-- [ ] NEEDS to modularize before adding new features !!!
-- [ ] Basic display operations: ., .s
-- [ ] Basic arithmetics
-- [ ] Stack ops
-- [ ] Read from file
+- TODO: 
+    - [ ] Next: lexemes and tokens
+    - [ ] Properly parse the code
+    - [ ] Node.js script to generate project folder structure
+    - [ ] Improve project structure?
 
-...
-
-limitations:
-
-- currently only stacks numbers.
-- no return stack
-- no dictionary, or words for that matter
-
-Libraries used:
-
-[SLRE for regex (GPLv2)](https://github.com/cesanta/slre/tree/master)
-
-[c-algorithms for data structures (ISC)](https://github.com/fragglet/c-algorithms/tree/master)
+- Language feat:
+    - [ ] Postfix arithmetics
+    - [ ] Display operations: . and .s
+    - [ ] Stack operations
+    - [ ] Compiling words
+    - [ ] Conditionals
