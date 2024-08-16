@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "runfile.h"
+#include "eval.h"
 
 const char* read_file(const char *file_name) {
 
@@ -47,6 +48,6 @@ const char* read_file(const char *file_name) {
 
 int run_file(const char *file_as_string) {
 	// TODO parse
-	printf("%s", file_as_string);
+	run(file_as_string);
 	return 0;
 }

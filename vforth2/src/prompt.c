@@ -1,4 +1,5 @@
 #include "prompt.h"
+#include "eval.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -23,7 +24,7 @@ int prompt() {
 		}
 
 		// Reads line (working, currently only echoes it)
-		printf("%s\n", buffer);
+		run(buffer);
 
 		// Eval line
 	}
