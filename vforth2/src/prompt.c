@@ -22,6 +22,9 @@ int prompt() {
 			continue;
 		}
 
-		// eval()
+		// Reads line (working, currently only echoes it)
+		printf("%s\n", buffer);
+
+		// Eval line
 	}
 }
