@@ -1,7 +1,7 @@
-- Requirements: gcc, npm, Node.js
+- **Requirements:** gcc, npm, Node.js
 
 > [!TIP]
-> Building the intepreter: check the following scripts on package.json
+> **Building** the intepreter: check the following scripts on [package.json](package.json)
 >
 > `npm run build:exec` to compile and run the interpreter as REPL
 >
