@@ -13,7 +13,7 @@ enum TokenType {
 	IS_ZERO, IS_NEGATIVE, IS_POSITIVE,
 
 	// Literals.
-	WORD, STRING, NUMBER,
+	WORD, STRING, INTEGER, DOUBLE,
 
 	// Keywords.
 	AND, OR,
