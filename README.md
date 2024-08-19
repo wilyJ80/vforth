@@ -1,4 +1,4 @@
-- **Requirements:** gcc, npm, Node.js
+- **Requirements:** gcc, Node.js
 
 > [!TIP]
 > **Building** the intepreter: check the following scripts on [package.json](package.json)
