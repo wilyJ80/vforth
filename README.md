@@ -10,6 +10,8 @@
 - TODO: 
     - [ ] Next: lexemes and tokens
     - [ ] Properly parse the code
+    - [ ] Improve the parts I don't know what the hell is going on
+    - [ ] Add links to the web book
     - [ ] Node.js script to generate project folder structure
     - [X] Improve project structure?
 
