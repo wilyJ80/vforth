@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "gcc ./src/*.c -o ./build/vforth",
+    "build": "gcc ./src/core/*.c ./src/error/*.c ./src/frontend/*.c -o ./build/vforth",
     "exec": "./build/vforth",
     "build:exec": "npm run build && npm run exec"
   },

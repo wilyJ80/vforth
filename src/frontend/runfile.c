@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "runfile.h"
-#include "eval.h"
+#include "../core/eval.h"
 
 const char* read_file(const char *file_name) {
 
