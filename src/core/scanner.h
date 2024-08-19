@@ -1,7 +1,7 @@
 #ifndef SCANNER_H
 #define SCANNER_H
 
-#import "token.h"
+#include "token.h"
 
 struct Scanner {
 	const char* source;
