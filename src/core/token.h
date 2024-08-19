@@ -10,14 +10,14 @@ union Literal {
 };
 
 struct Token {
-	const TokenType type;
+	const enum TokenType type;
 	const char* lexeme;
-	Literal literal;
+	union Literal literal;
 	const int line;
 };
 
-Token createToken(TokenType type, const char* lexeme, Literal literal, int line);
+struct Token create_token(enum TokenType type, const char* lexeme, union Literal literal, int line);
 
-const char* to_string(Token token);
+const char* to_string(struct Token token);
 
 #endif // !TOKEN_H

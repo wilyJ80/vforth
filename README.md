@@ -11,7 +11,7 @@
     - [ ] Next: lexemes and tokens
     - [ ] Properly parse the code
     - [ ] Node.js script to generate project folder structure
-    - [ ] Improve project structure?
+    - [X] Improve project structure?
 
 - Language feat:
     - [ ] Postfix arithmetics
