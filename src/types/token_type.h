@@ -13,13 +13,15 @@ enum TokenType {
 	IS_ZERO, IS_NEGATIVE, IS_POSITIVE,
 
 	// Literals.
-	WORD, NUMBER,
+	WORD, STRING, NUMBER,
 
 	// Keywords.
 	AND, OR,
 	IF, ELSE, THEN,
+	// Did not study Forth loops yet lol, (to be implemented)
 	// DO, LOOP, BEGIN, WHILE, REPEAT,
 	
+	EOF
 };
 
 #endif // !TOKEN_TYPE_H
