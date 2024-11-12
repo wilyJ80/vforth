@@ -1,4 +1,5 @@
 #include "lexer.h"
+#include "eval.h"
 #include "types.h"
 #include <stdbool.h>
 #include <stdio.h>
@@ -19,6 +20,8 @@ int main(int argc, char *argv[]) {
   }
 
   int lineCount = 1;
+  struct DataStack dataStack;
+  initDataStack(&dataStack);
 
   while (true) {
     struct Token token = getNextChar(fp, &lineCount);
@@ -27,8 +30,11 @@ int main(int argc, char *argv[]) {
       break;
     } else {
       printToken(token);
+      evalToken(token, &dataStack);
     }
   }
+
+  printDataStack(&dataStack);
 
   return EXIT_SUCCESS;
 }

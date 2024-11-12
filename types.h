@@ -2,6 +2,7 @@
 #define TYPES_H
 
 #define MAX_SIZE_LEXEME 31
+#define MAX_STACK_SIZE 11
 
 enum TOKEN_CATEGORY { WORD, INT, NEWLINE, END_OF_FILE };
 
@@ -12,5 +13,12 @@ struct Token {
     char lexeme[MAX_SIZE_LEXEME];
   };
 };
+
+struct DataStack {
+  int top;
+  int value[MAX_STACK_SIZE];
+};
+
+// ReturnStack
 
 #endif // !TYPES_H
