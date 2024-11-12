@@ -23,6 +23,7 @@ int main(int argc, char *argv[]) {
   while (true) {
     struct Token token = getNextChar(fp, &lineCount);
     if (token.category == EOF) {
+      printf("EOF Found\n");
       break;
     }
   }

@@ -39,6 +39,7 @@ struct Token getNextChar(FILE *fp, int *lineCount) {
         return token;
 
       } else if (ch == EOF) {
+        token.category = EOF;
         return token;
 
       } else if (isPrintNotSpaceNotDigit(ch)) {
