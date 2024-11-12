@@ -11,4 +11,6 @@ bool isPrintNotSpace(char ch);
 
 struct Token getNextChar(FILE *fp, int *lineCount);
 
+void printToken(struct Token token);
+
 #endif // !LEXER_H

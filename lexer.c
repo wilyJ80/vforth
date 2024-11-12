@@ -36,10 +36,11 @@ struct Token getNextChar(FILE *fp, int *lineCount) {
         state = 0;
         (*lineCount)++;
         // should it though?
+        token.category = NEWLINE;
         return token;
 
       } else if (ch == EOF) {
-        token.category = EOF;
+        token.category = END_OF_FILE;
         return token;
 
       } else if (isPrintNotSpaceNotDigit(ch)) {
@@ -98,5 +99,19 @@ struct Token getNextChar(FILE *fp, int *lineCount) {
       }
       break;
     }
+  }
+}
+
+void printToken(struct Token token) {
+
+  switch (token.category) {
+  case WORD:
+    printf("<WORD, %s>\n", token.lexeme);
+    break;
+  case INT:
+    printf("<INT, %d>\n", token.intValue);
+    break;
+  default:
+    break;
   }
 }

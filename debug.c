@@ -22,9 +22,11 @@ int main(int argc, char *argv[]) {
 
   while (true) {
     struct Token token = getNextChar(fp, &lineCount);
-    if (token.category == EOF) {
+    if (token.category == END_OF_FILE) {
       printf("EOF Found\n");
       break;
+    } else {
+      printToken(token);
     }
   }
 
