@@ -35,6 +35,7 @@ struct Token getNextChar(FILE *fp, int *lineCount) {
       } else if (ch == '\n') {
         state = 0;
         (*lineCount)++;
+        // should it though?
         return token;
 
       } else if (ch == EOF) {
@@ -61,7 +62,7 @@ struct Token getNextChar(FILE *fp, int *lineCount) {
         lexeme[lexemeSize] = ch;
         lexeme[++lexemeSize] = '\0';
 
-      } else if (ch == ' ') {
+      } else if (!isPrintNotSpace(ch)) {
         state = 2;
         ungetc(ch, fp);
         token.category = WORD;
@@ -84,7 +85,7 @@ struct Token getNextChar(FILE *fp, int *lineCount) {
         lexeme[lexemeSize] = ch;
         lexeme[++lexemeSize] = '\0';
 
-      } else if (ch == ' ') {
+      } else if (!isPrintNotSpaceNotDigit(ch) && !isdigit(ch)) {
         state = 4;
         ungetc(ch, fp);
         token.category = INT;
