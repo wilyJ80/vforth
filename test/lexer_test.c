@@ -1,16 +1,16 @@
 #include "lexer_test.h"
 #include "../lexer.h"
 #include "../types.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
 
 void lexerTest() {
-  const char *filename = "example.fth";
+  const char *mock_data = "2 dup drop";
+  FILE *mock_file = fmemopen((void *)mock_data, strlen(mock_data), "r");
 
-  FILE *fp;
-  fp = fopen(filename, "r");
-  if (fp == NULL) {
+  if (mock_file == NULL) {
     fprintf(stderr, "Error opening source file.\n");
     exit(EXIT_FAILURE);
   }
@@ -20,7 +20,7 @@ void lexerTest() {
   int index = 0;
 
   while (true) {
-    struct Token token = getNextChar(fp, &lineCount);
+    struct Token token = getNextChar(mock_file, &lineCount);
     if (token.category == END_OF_FILE) {
       break;
     }
@@ -30,10 +30,10 @@ void lexerTest() {
   // assert here
   assert(tokens[0].category == INT);
   assert(tokens[0].intValue == 2);
-
+  
   assert(tokens[1].category == WORD);
-  assert(strcmp(tokens[1].lexeme, "dup"));
+  assert(strcmp(tokens[1].lexeme, "dup") == 0);
 
   assert(tokens[2].category == WORD);
-  assert(strcmp(tokens[2].lexeme, "drop"));
+  assert(strcmp(tokens[2].lexeme, "drop") == 0);
 }
