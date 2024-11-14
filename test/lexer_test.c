@@ -1,6 +1,6 @@
 #include "lexer_test.h"
-#include "../lexer.h"
-#include "../types.h"
+#include "../lexer/lexer.h"
+#include "../lexer/types.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -27,7 +27,7 @@ void lexerTest() {
     tokens[index] = token;
     index++;
   }
-  // assert here
+
   assert(tokens[0].category == INT);
   assert(tokens[0].intValue == 2);
   

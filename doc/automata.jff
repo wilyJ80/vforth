@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><!--Created with JFLAP 7.1.--><structure>
+	<type>fa</type>
+	<automaton>
+		<!--The list of states.-->
+		<state id="0" name="q0">
+			<x>206.0</x>
+			<y>158.0</y>
+			<initial/>
+		</state>
+		<state id="1" name="q1">
+			<x>589.0</x>
+			<y>154.0</y>
+		</state>
+		<state id="2" name="q2">
+			<x>691.0</x>
+			<y>334.0</y>
+			<label>WORD</label>
+			<final/>
+		</state>
+		<state id="3" name="q3">
+			<x>408.0</x>
+			<y>423.0</y>
+		</state>
+		<state id="4" name="q4">
+			<x>652.0</x>
+			<y>450.0</y>
+			<label>INT</label>
+			<final/>
+		</state>
+		<state id="5" name="q5">
+			<x>92.0</x>
+			<y>444.0</y>
+		</state>
+		<!--The list of transitions.-->
+		<transition>
+			<from>0</from>
+			<to>3</to>
+			<read>int</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>4</to>
+			<read>other*</read>
+		</transition>
+		<transition>
+			<from>5</from>
+			<to>5</to>
+			<read>isprint, newline, tab</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>0</to>
+			<read>space, newline, tab</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>1</to>
+			<read>isprint, not space, not int</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read>other*</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>1</to>
+			<read>isprint, not space, not int</read>
+		</transition>
+		<transition>
+			<from>1</from>
+			<to>1</to>
+			<read>isprint, notspace</read>
+		</transition>
+		<transition>
+			<from>3</from>
+			<to>3</to>
+			<read>int</read>
+		</transition>
+		<transition>
+			<from>0</from>
+			<to>5</to>
+			<read>(</read>
+		</transition>
+		<transition>
+			<from>5</from>
+			<to>0</to>
+			<read>)</read>
+		</transition>
+	</automaton>
+</structure>

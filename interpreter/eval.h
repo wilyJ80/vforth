@@ -1,7 +1,7 @@
 #ifndef EVAL_H
 #define EVAL_H
 
-#include "types.h"
+#include "../lexer/types.h"
 
 void initDataStack(struct DataStack *dataStack);
 void pushDataStack(struct DataStack *dataStack, int value);
