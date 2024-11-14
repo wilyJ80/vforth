@@ -66,13 +66,15 @@ struct Token getNextToken(FILE *fp, int *lineCount) {
          transitionTable[state][possibleTransition].charMatch != NULL;
          possibleTransition++) {
 
-      if (transitionTable[state][possibleTransition].charMatch(ch)) {
+      struct Transition currentTransition = transitionTable[state][possibleTransition];
+
+      if (currentTransition.charMatch(ch)) {
         foundTransition = true;
-        token.category = transitionTable[state][possibleTransition].category;
+        token.category = currentTransition.category;
 
         // handle deconsuming of char that leads to accepting state, should not
         // unget newline to avoid overcounting the line counter
-        if (transitionTable[state][possibleTransition].isAccepting == ACCEPTING) {
+        if (currentTransition.isAccepting == ACCEPTING) {
           ungetc(ch, fp);
         }
 
@@ -100,7 +102,7 @@ struct Token getNextToken(FILE *fp, int *lineCount) {
           break;
         }
 
-        state = transitionTable[state][possibleTransition].nextState;
+        state = currentTransition.nextState;
       }
     }
 
