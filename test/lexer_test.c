@@ -7,7 +7,7 @@
 #include <string.h>
 
 void lexerTest() {
-  const char *mock_data = "2 + *\n";
+  const char *mock_data = "(um lemme see...) 2 + *\n";
   FILE *mock_file = fmemopen((void *)mock_data, strlen(mock_data), "r");
 
   if (mock_file == NULL) {
