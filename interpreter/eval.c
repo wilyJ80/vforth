@@ -1,5 +1,5 @@
 #include "eval.h"
-#include "../lexer/types.h"
+#include "./types.h"
 #include <stdio.h>
 #include <stdlib.h>
 

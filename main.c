@@ -21,8 +21,24 @@ int main(int argc, char *argv[]) {
   int lineCount = 1;
 
   while (true) {
-    struct Token token = getNextChar(fp, &lineCount);
-    if (token.category == EOF) {
+    struct Token token = getNextToken(fp, &lineCount);
+    if (token.category == END_OF_FILE) {
+      fclose(fp);
+      exit(EXIT_SUCCESS);
+    }
+
+    switch (token.category) {
+    case MALFORMED:
+      fprintf(stderr, "Error: malformed token %s on line %d\n", token.lexeme,
+              lineCount);
+      break;
+
+    case WORD:
+      printf("<WORD, %s>\n", token.lexeme);
+      break;
+
+    case INT:
+      printf("<INT, %d>\n", token.intValue);
       break;
     }
   }

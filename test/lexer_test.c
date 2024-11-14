@@ -7,7 +7,7 @@
 #include <string.h>
 
 void lexerTest() {
-  const char *mock_data = "2 dup drop";
+  const char *mock_data = "2 + *\n";
   FILE *mock_file = fmemopen((void *)mock_data, strlen(mock_data), "r");
 
   if (mock_file == NULL) {
@@ -20,7 +20,7 @@ void lexerTest() {
   int index = 0;
 
   while (true) {
-    struct Token token = getNextChar(mock_file, &lineCount);
+    struct Token token = getNextToken(mock_file, &lineCount);
     if (token.category == END_OF_FILE) {
       break;
     }
@@ -32,8 +32,9 @@ void lexerTest() {
   assert(tokens[0].intValue == 2);
   
   assert(tokens[1].category == WORD);
-  assert(strcmp(tokens[1].lexeme, "dup") == 0);
+  assert(strcmp(tokens[1].lexeme, "+") == 0);
 
+  printf("%d\n", tokens[2].category);
   assert(tokens[2].category == WORD);
-  assert(strcmp(tokens[2].lexeme, "drop") == 0);
+  assert(strcmp(tokens[2].lexeme, "*") == 0);
 }

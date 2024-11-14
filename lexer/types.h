@@ -1,10 +1,9 @@
-#ifndef TYPES_H
-#define TYPES_H
+#ifndef LEXER_TYPES_H
+#define LEXER_TYPES_H
 
 #define MAX_SIZE_LEXEME 31
-#define MAX_STACK_SIZE 11
 
-enum TOKEN_CATEGORY { WORD, INT, NEWLINE, COMMENT, END_OF_FILE };
+enum TOKEN_CATEGORY { WORD, INT, KEEP_BUILDING, NEWLINE, IGNORE, END_OF_FILE, MALFORMED };
 
 struct Token {
   enum TOKEN_CATEGORY category;
@@ -14,11 +13,10 @@ struct Token {
   };
 };
 
-struct DataStack {
-  int top;
-  int value[MAX_STACK_SIZE];
+struct Transition {
+  int nextState;
+  enum TOKEN_CATEGORY category;
+  bool (*charMatch)(char);
 };
 
-// ReturnStack
-
-#endif // !TYPES_H
+#endif // !LEXER_TYPES_H

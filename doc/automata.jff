@@ -65,7 +65,7 @@
 		<transition>
 			<from>0</from>
 			<to>1</to>
-			<read>isprint, not space, not int</read>
+			<read>isprint, not space, not int, not paren open</read>
 		</transition>
 		<transition>
 			<from>1</from>

@@ -9,7 +9,7 @@ void error(char *lexeme, int *lineCount);
 bool isPrintNotSpaceNotDigit(char ch);
 bool isPrintNotSpace(char ch);
 
-struct Token getNextChar(FILE *fp, int *lineCount);
+struct Token getNextToken(FILE *fp, int *lineCount);
 
 void printToken(struct Token token);
 

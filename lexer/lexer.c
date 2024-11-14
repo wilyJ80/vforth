@@ -1,117 +1,115 @@
 #include "lexer.h"
+#include "char_match.h"
 #include "types.h"
-
-#include <ctype.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+#define MAX_STATES 5
+#define MAX_TRANSITIONS 4
+
 void error(char *lexeme, int *lineCount) {
   printf("Error: malformed token at line %d: %s\n", *lineCount, lexeme);
 }
 
-bool isPrintNotSpaceNotDigit(char ch) {
-  return isprint(ch) && ch != ' ' && !isdigit(ch);
-}
+struct Token getNextToken(FILE *fp, int *lineCount) {
 
-bool isPrintNotSpace(char ch) { return isprint(ch) && ch != ' '; }
+  struct Transition transitionTable[MAX_STATES + 1][MAX_TRANSITIONS + 1] = {
+      // Token category, char match callback, next state
 
-struct Token getNextChar(FILE *fp, int *lineCount) {
+      // State 0
+      {{0, IGNORE, isIsSpace},
+       {1, KEEP_BUILDING, isPrintNotSpaceNotDigitNotParenOpen},
+       {3, KEEP_BUILDING, isIsDigit},
+       {5, KEEP_BUILDING, isParenOpen}},
+      // State 1
+      {{1, KEEP_BUILDING, isPrintNotSpace}, {2, WORD, isNotPrintOrIsSpace}},
+      // State 2: accepting
+      {},
+      // State 3
+      {{1, KEEP_BUILDING, isPrintNotSpaceNotDigit},
+       {3, KEEP_BUILDING, isIsDigit},
+       {4, INT, isNotPrintOrIsSpace}},
+      // State 4: accepting
+      {},
+      // State 5
+      {{5, KEEP_BUILDING, isPrintOrNewlineOrTab}, {0, IGNORE, isParenClose}}};
+
+  // running values
   char lexeme[MAX_SIZE_LEXEME] = "";
   int lexemeSize = 0;
   int state = 0;
   struct Token token;
 
+  // Character consuming loop
   while (true) {
     char ch = fgetc(fp);
 
-    switch (state) {
-
-    case 0:
-      if (ch == ' ' || ch == '\t') {
-        state = 0;
-
-      } else if (ch == '\n') {
-        state = 0;
-        (*lineCount)++;
-        // should it though?
-        token.category = NEWLINE;
-        return token;
-
-      } else if (ch == EOF) {
-        token.category = END_OF_FILE;
-        return token;
-
-      } else if (isPrintNotSpaceNotDigit(ch)) {
-        state = 1;
-        lexeme[lexemeSize] = ch;
-        lexeme[++lexemeSize] = '\0';
-
-      } else if (isdigit(ch)) {
-        state = 3;
-        lexeme[lexemeSize] = ch;
-        lexeme[++lexemeSize] = '\0';
-
-      } else {
-        error(lexeme, lineCount);
-      }
-      break;
-
-    case 1:
-      if (isPrintNotSpace(ch)) {
-        state = 1;
-        lexeme[lexemeSize] = ch;
-        lexeme[++lexemeSize] = '\0';
-
-      } else if (!isPrintNotSpace(ch)) {
-        state = 2;
-        ungetc(ch, fp);
-        token.category = WORD;
-        strcpy(token.lexeme, lexeme);
-        return token;
-
-      } else {
-        error(lexeme, lineCount);
-      }
-      break;
-
-    case 3:
-      if (isdigit(ch)) {
-        state = 3;
-        lexeme[lexemeSize] = ch;
-        lexeme[++lexemeSize] = '\0';
-
-      } else if (isPrintNotSpaceNotDigit(ch)) {
-        state = 1;
-        lexeme[lexemeSize] = ch;
-        lexeme[++lexemeSize] = '\0';
-
-      } else if (!isPrintNotSpaceNotDigit(ch) && !isdigit(ch)) {
-        state = 4;
-        ungetc(ch, fp);
-        token.category = INT;
-        token.intValue = atoi(lexeme);
-        return token;
-
-      } else {
-        error(lexeme, lineCount);
-      }
-      break;
+    // Return EOF token to signal the end: caller needs to check for EOF
+    // themselves.
+    if (ch == EOF) {
+      token.category = END_OF_FILE;
+      return token;
     }
-  }
-}
 
-void printToken(struct Token token) {
+    // Line skipping (for error reporting)
+    if (ch == '\n') {
+      (*lineCount)++;
+    }
 
-  switch (token.category) {
-  case WORD:
-    printf("<WORD, %s>\n", token.lexeme);
-    break;
-  case INT:
-    printf("<INT, %d>\n", token.intValue);
-    break;
-  default:
-    break;
+    bool foundTransition = false;
+
+    // Loop through possible transitions looking for a match
+    for (int possibleTransition = 0;
+         possibleTransition < MAX_TRANSITIONS + 1 &&
+         transitionTable[state][possibleTransition].charMatch != NULL;
+         possibleTransition++) {
+
+      if (transitionTable[state][possibleTransition].charMatch(ch)) {
+        foundTransition = true;
+        token.category = transitionTable[state][possibleTransition].category;
+
+        // handle deconsuming of char that leads to accepting state, should not
+        // unget newline to avoid overcounting the line counter
+        if (token.category == WORD || token.category == INT) {
+          ungetc(ch, fp);
+        }
+
+        switch (token.category) {
+
+        case KEEP_BUILDING:
+          lexeme[lexemeSize] = ch;
+          lexeme[++lexemeSize] = '\0';
+          break;
+
+        case IGNORE:
+          lexeme[0] = '\0';
+          lexemeSize = 0;
+          break;
+
+        case INT:
+          token.intValue = atoi(lexeme);
+          return token;
+
+        case WORD:
+          strcpy(token.lexeme, lexeme);
+          return token;
+
+          default:
+          break;
+        }
+
+        state = transitionTable[state][possibleTransition].nextState;
+      }
+    }
+
+    if (!foundTransition) {
+      lexeme[lexemeSize] = ch;
+      lexeme[++lexemeSize] = '\0';
+      token.category = MALFORMED;
+      strcpy(token.lexeme, lexeme);
+      return token;
+    }
   }
 }
