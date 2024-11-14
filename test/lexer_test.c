@@ -34,7 +34,6 @@ void lexerTest() {
   assert(tokens[1].category == WORD);
   assert(strcmp(tokens[1].lexeme, "+") == 0);
 
-  printf("%d\n", tokens[2].category);
   assert(tokens[2].category == WORD);
   assert(strcmp(tokens[2].lexeme, "*") == 0);
 }

@@ -16,5 +16,5 @@
 
 # Todo
 
-- [ ] Remake automata with comment type
-- [ ] Put together main
+- [ ] Cleanup lexer
+- [ ] Eval

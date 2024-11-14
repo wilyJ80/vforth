@@ -19,22 +19,22 @@ struct Token getNextToken(FILE *fp, int *lineCount) {
       // Token category, char match callback, next state
 
       // State 0
-      {{0, IGNORE, isIsSpace},
-       {1, KEEP_BUILDING, isPrintNotSpaceNotDigitNotParenOpen},
-       {3, KEEP_BUILDING, isIsDigit},
-       {5, KEEP_BUILDING, isParenOpen}},
+      {{0, IGNORE, NONACCEPTING, isIsSpace},
+       {1, KEEP_BUILDING, NONACCEPTING, isPrintNotSpaceNotDigitNotParenOpen},
+       {3, KEEP_BUILDING, NONACCEPTING, isIsDigit},
+       {5, KEEP_BUILDING, NONACCEPTING, isParenOpen}},
       // State 1
-      {{1, KEEP_BUILDING, isPrintNotSpace}, {2, WORD, isNotPrintOrIsSpace}},
+      {{1, KEEP_BUILDING, NONACCEPTING, isPrintNotSpace}, {2, WORD, ACCEPTING, isNotPrintOrIsSpace}},
       // State 2: accepting
       {},
       // State 3
-      {{1, KEEP_BUILDING, isPrintNotSpaceNotDigit},
-       {3, KEEP_BUILDING, isIsDigit},
-       {4, INT, isNotPrintOrIsSpace}},
+      {{1, KEEP_BUILDING, NONACCEPTING, isPrintNotSpaceNotDigit},
+       {3, KEEP_BUILDING, NONACCEPTING, isIsDigit},
+       {4, INT, ACCEPTING, isNotPrintOrIsSpace}},
       // State 4: accepting
       {},
       // State 5
-      {{5, KEEP_BUILDING, isPrintOrNewlineOrTab}, {0, IGNORE, isParenClose}}};
+      {{5, KEEP_BUILDING, NONACCEPTING, isPrintOrNewlineOrTab}, {0, IGNORE, NONACCEPTING, isParenClose}}};
 
   // running values
   char lexeme[MAX_SIZE_LEXEME] = "";
@@ -72,7 +72,7 @@ struct Token getNextToken(FILE *fp, int *lineCount) {
 
         // handle deconsuming of char that leads to accepting state, should not
         // unget newline to avoid overcounting the line counter
-        if (token.category == WORD || token.category == INT) {
+        if (transitionTable[state][possibleTransition].isAccepting == ACCEPTING) {
           ungetc(ch, fp);
         }
 
