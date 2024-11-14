@@ -3,6 +3,8 @@
 
 #define MAX_STACK_SIZE 777
 
+#include "../lexer/types.h"
+
 struct DataStack {
   int top;
   int value[MAX_STACK_SIZE];
@@ -17,6 +19,9 @@ struct ReturnStack {
   };
 };
 
-// ReturnStack
+struct DataStack createDataStack();
+struct ReturnStack createReturnStack();
+void loadToken(struct DataStack dataStack, struct ReturnStack returnStack, struct Token token);
+void consumeStack(struct DataStack stack);
 
 #endif // !INTERPRETER_TYPES_H
