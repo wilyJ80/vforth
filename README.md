@@ -16,5 +16,5 @@
 
 # Todo
 
-- [ ] Cleanup lexer
+- [X] Cleanup lexer
 - [ ] Eval
