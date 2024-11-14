@@ -3,7 +3,12 @@
 
 #define MAX_SIZE_LEXEME 31
 
-enum TOKEN_CATEGORY { WORD, INT, KEEP_BUILDING, NEWLINE, IGNORE, END_OF_FILE, MALFORMED };
+enum TOKEN_CATEGORY { WORD, INT, KEEP_BUILDING, IGNORE, END_OF_FILE, MALFORMED };
+
+enum IS_ACCEPTING {
+  ACCEPTING,
+  NONACCEPTING
+};
 
 struct Token {
   enum TOKEN_CATEGORY category;
@@ -16,6 +21,7 @@ struct Token {
 struct Transition {
   int nextState;
   enum TOKEN_CATEGORY category;
+  enum IS_ACCEPTING isAccepting;
   bool (*charMatch)(char);
 };
 
