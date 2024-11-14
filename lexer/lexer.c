@@ -9,10 +9,6 @@
 #define MAX_STATES 5
 #define MAX_TRANSITIONS 4
 
-void error(char *lexeme, int *lineCount) {
-  printf("Error: malformed token at line %d: %s\n", *lineCount, lexeme);
-}
-
 struct Token getNextToken(FILE *fp, int *lineCount) {
 
   struct Transition transitionTable[MAX_STATES + 1][MAX_TRANSITIONS + 1] = {
@@ -24,7 +20,8 @@ struct Token getNextToken(FILE *fp, int *lineCount) {
        {3, KEEP_BUILDING, NONACCEPTING, isIsDigit},
        {5, KEEP_BUILDING, NONACCEPTING, isParenOpen}},
       // State 1
-      {{1, KEEP_BUILDING, NONACCEPTING, isPrintNotSpace}, {2, WORD, ACCEPTING, isNotPrintOrIsSpace}},
+      {{1, KEEP_BUILDING, NONACCEPTING, isPrintNotSpace},
+       {2, WORD, ACCEPTING, isNotPrintOrIsSpace}},
       // State 2: accepting
       {},
       // State 3
@@ -34,7 +31,8 @@ struct Token getNextToken(FILE *fp, int *lineCount) {
       // State 4: accepting
       {},
       // State 5
-      {{5, KEEP_BUILDING, NONACCEPTING, isPrintOrNewlineOrTab}, {0, IGNORE, NONACCEPTING, isParenClose}}};
+      {{5, KEEP_BUILDING, NONACCEPTING, isPrintOrNewlineOrTab},
+       {0, IGNORE, NONACCEPTING, isParenClose}}};
 
   // running values
   char lexeme[MAX_SIZE_LEXEME] = "";
@@ -59,14 +57,14 @@ struct Token getNextToken(FILE *fp, int *lineCount) {
     }
 
     bool foundTransition = false;
-
     // Loop through possible transitions looking for a match
     for (int possibleTransition = 0;
          possibleTransition < MAX_TRANSITIONS + 1 &&
          transitionTable[state][possibleTransition].charMatch != NULL;
          possibleTransition++) {
 
-      struct Transition currentTransition = transitionTable[state][possibleTransition];
+      struct Transition currentTransition =
+          transitionTable[state][possibleTransition];
 
       if (currentTransition.charMatch(ch)) {
         foundTransition = true;
@@ -79,7 +77,6 @@ struct Token getNextToken(FILE *fp, int *lineCount) {
         }
 
         switch (token.category) {
-
         case KEEP_BUILDING:
           lexeme[lexemeSize] = ch;
           lexeme[++lexemeSize] = '\0';
@@ -98,7 +95,11 @@ struct Token getNextToken(FILE *fp, int *lineCount) {
           strcpy(token.lexeme, lexeme);
           return token;
 
-          default:
+        case MALFORMED:
+          printf("Error: malformed token at line %d: %s\n", *lineCount, lexeme);
+          exit(EXIT_FAILURE);
+
+        default:
           break;
         }
 

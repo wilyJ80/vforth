@@ -28,11 +28,6 @@ int main(int argc, char *argv[]) {
     }
 
     switch (token.category) {
-    case MALFORMED:
-      fprintf(stderr, "Error: malformed token %s on line %d\n", token.lexeme,
-              lineCount);
-      break;
-
     case WORD:
       printf("<WORD, %s>\n", token.lexeme);
       break;
