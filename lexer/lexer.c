@@ -42,7 +42,7 @@ struct Token getNextToken(FILE *fp, int *lineCount) {
 
   // Character consuming loop
   while (true) {
-    char ch = fgetc(fp);
+    int ch = fgetc(fp);
 
     // Return EOF token to signal the end: caller needs to check for EOF
     // themselves.
