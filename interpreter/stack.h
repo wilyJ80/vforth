@@ -19,9 +19,11 @@ struct ReturnStack {
   };
 };
 
+void pushInt(struct DataStack *dataStack, int n);
+
 struct DataStack createDataStack();
 struct ReturnStack createReturnStack();
-void loadToken(struct DataStack dataStack, struct ReturnStack returnStack, struct Token token);
+void loadToken(struct DataStack *dataStack, struct Token token);
 void consumeStack(struct DataStack stack);
 
 #endif // !INTERPRETER_TYPES_H
