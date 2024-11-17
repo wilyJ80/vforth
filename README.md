@@ -20,6 +20,7 @@
 
 Eval:
 
+- [ ] PROBLEM: INFINITE LOOP
 - [ ] Stack function, stack information consumption function
 - [ ] Stacks data tokens correctly
     - [ ] print stack word: .S
