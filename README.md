@@ -21,7 +21,8 @@
 Eval:
 
 - [X] PROBLEM: INFINITE LOOP
-- [ ] Stacks data tokens correctly
+- [X] Stacks data tokens correctly
+- [ ] Stacks words (functions) correctly - integration test probably needed
 - [ ] Stack function, stack information consumption function
     - [ ] print stack word: .S
     - [ ] pop top word: .
