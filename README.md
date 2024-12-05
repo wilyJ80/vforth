@@ -17,4 +17,14 @@
 # Todo
 
 - [X] Cleanup lexer
-- [ ] Eval
+
+Eval:
+
+- [X] PROBLEM: INFINITE LOOP
+- [X] Stacks data tokens correctly
+- [ ] Stacks words (functions) correctly - integration test probably needed
+- [ ] Stack function, stack information consumption function
+    - [ ] print stack word: .S
+    - [ ] pop top word: .
+- [ ] Stacks basic words and operates on data: math basic operations and swap, dup, drop, rot, over
+- [ ] Stacks words: reserved words call functions. Create string data type?

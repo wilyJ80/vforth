@@ -3,6 +3,8 @@
 
 #define MAX_SIZE_LEXEME 31
 
+#include <stdbool.h>
+
 enum TOKEN_CATEGORY { WORD, INT, KEEP_BUILDING, IGNORE, END_OF_FILE, MALFORMED };
 
 enum IS_ACCEPTING {

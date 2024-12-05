@@ -1,13 +1,15 @@
-#include "lexer_test.h"
+#include "datastack_test.h"
+#include "../interpreter/stack.h"
 #include "../lexer/lexer.h"
 #include "../lexer/types.h"
+#include <assert.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
 #include <string.h>
 
-void lexerTest() {
-  const char *mock_data = "(um lemme see...) 2 + *\n";
+void dataStackTest() {
+  const char *mock_data = "2 3 77 +\n";
   FILE *mock_file = fmemopen((void *)mock_data, strlen(mock_data), "r");
 
   if (mock_file == NULL) {
@@ -19,21 +21,18 @@ void lexerTest() {
   struct Token tokens[4];
   int index = 0;
 
+  struct DataStack dataStack = createDataStack();
+
   while (true) {
     struct Token token = getNextToken(mock_file, &lineCount);
     if (token.category == END_OF_FILE) {
       break;
     }
-    tokens[index] = token;
-    index++;
+    loadToken(&dataStack, token);
   }
 
-  assert(tokens[0].category == INT);
-  assert(tokens[0].intValue == 2);
-  
-  assert(tokens[1].category == WORD);
-  assert(strcmp(tokens[1].lexeme, "+") == 0);
-
-  assert(tokens[2].category == WORD);
-  assert(strcmp(tokens[2].lexeme, "*") == 0);
+  int top = dataStack.top;
+  assert(dataStack.value[top] == 77);
+  assert(dataStack.value[top-1] == 3);
+  assert(dataStack.value[top-2] == 2);
 }
